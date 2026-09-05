@@ -1,0 +1,2 @@
+# Decode official criteria
+For every official criterion preserve exact wording, source location and weight. Translate it into judge question, observable evidence, artifact location and pass/blocker conditions. Separate eligibility gates from scored criteria: high scores cannot compensate for ineligibility. If weights are absent use a declared provisional prioritization, never attribute it to organizers. Resolve conflicting versions by effective authority and amendments; record unresolved conflicts and their impact.

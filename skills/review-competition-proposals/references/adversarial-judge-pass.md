@@ -1,10 +1,3 @@
----
-name: simulate-adversarial-judges
-description: Run rubric-grounded adversarial review through at least seven independent judge perspectives, blind review pools, and an arbiter synthesis. Invoke for “악질심사”, red-team judging, harsh panel review, judge simulation, or pre-submission attack testing.
-metadata:
-  short-description: 다중 독립 악질심사
----
-
 # Simulate adversarial judges
 
 ## Purpose
@@ -16,6 +9,10 @@ Find reasons a serious evaluator could reject, downgrade, distrust, or fail to u
 Use the official notice/rubric, current deck, proposal, demo path, evidence register, implementation-truth labels, and constraints. If the information exists, remove team names, affiliations, prior feedback, and order-of-preference signals from the review packet. Mark every missing artifact.
 
 Run reviewers independently: each reviewer sees the same rubric and review packet but **never another simulated reviewer’s notes** before submitting a verdict. Do not give a reviewer the desired conclusion or proposed changes.
+
+Use isolated agent contexts or separate human reviewers for independent passes, with only the rubric, common packet and assigned lens supplied. Run in batches when concurrency is limited. Record reviewer/session IDs, packet version and what each reviewer received; keep notes separate until the arbiter stage. These are simulated perspectives, not real contest judges.
+
+If isolated contexts are unavailable, provide a labeled single-context multi-perspective critique. Do not claim blindness or independence and do not use it as a passing independent/holdout gate. Preserve team capability evidence when redacting names so reviewers can still assess execution.
 
 ## Required independent perspectives
 

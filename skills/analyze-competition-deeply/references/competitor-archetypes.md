@@ -1,0 +1,2 @@
+# Competitor archetypes
+Group public comparable entries by problem, maturity, mechanism, evidence and delivery format. Record sample scope, years/categories and publication bias. Explain what each archetype tends to demonstrate and what remains unknown. These are observed approaches, not forecasts of actual entrants. Supply the landscape to planning, which compares the team's specific intervention against nearest alternatives.

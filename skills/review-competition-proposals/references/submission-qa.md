@@ -1,0 +1,3 @@
+# Submission QA
+Inspect the actual export, not just source text: page/slide/time limits, required sections, file types/names/size, fonts/layout, charts/citations, attachments and relevant accessibility requirements. Verify eligibility and deadline/timezone against official sources.
+Reconcile final claims and implementation labels with evidence/demo; test links and rehearsed recovery. Record artifact version/hash and pass/fail/unverified per requirement. Missing rendering/access leaves that check unverified and freeze not ready. Freeze a manifest of exact artifacts and unresolved accepted limitations. Actual upload/submission requires the user's explicit authorization.

@@ -1,93 +1,77 @@
 # Competition Winning Skill Suite
 
-근거 중심 분석을 수상 경쟁력 있는 제출물로 연결하는 Codex Agent Skill 모음입니다. 이 스위트는 “그럴듯한 아이디어를 많이 추가하기”보다 **공식 기준에 맞는 문제 정의, 검증 가능한 차별성, 실제로 보여 줄 수 있는 실행력**을 우선합니다.
+공식 근거·문제 정의·실행가능성을 보존하면서 공모전 제출물을 발전시키는 **Core 9 + Optional 2** Codex 스킬입니다. 사용자 의도가 달라지는 지점을 독립 스킬로 나누고 세부 분석은 필요할 때만 읽는 references 프로토콜로 구성했습니다.
 
-공개 `competition-ai-skill-suite`의 독립 `skills/<name>/SKILL.md` 설치 구조를 참고했지만, 이 저장소의 스킬·프롬프트·심사 체계는 수상 경쟁 최적화와 과적합 방지 목적에 맞춰 새로 설계했습니다.
+## 설치와 호출
 
-## 포함 스킬과 호출 별칭
+Core 9 폴더를 Codex 스킬 폴더(기본 ~/.codex/skills/)에 설치하고 새 작업에서 사용하세요. 선택형은 필요할 때 추가합니다. 이 저장소 변경만으로 현재 Codex에 자동 설치되지는 않습니다. 자연어 별칭은 의도 라우팅 안내이며 확정 호출은 아래 내부 식별자를 사용합니다.
 
-| 별칭 | 내부 스킬 | 쓰는 때 |
+| 구분 | 내부 식별자 | 별칭 / 책임 |
 | --- | --- | --- |
-| `공모전` | `$run-competition-winning-workflow` | 공고부터 제출 동결까지 전체 경로를 이어 갈 때 |
-| `수상작역설계` | `$reverse-engineer-winning-entries` | 공식 심사기준과 공개 수상 사례를 전략으로 해석할 때 |
-| `문제채굴` | `$mine-high-value-problems` | 관찰 가능한 고가치 문제를 찾아 검증할 때 |
-| `차별화검증` | `$map-competitive-whitespace` | 기존 서비스·수상작·선행기술·특허 대비 잔여 공백을 확인할 때 |
-| `악질심사` | `$simulate-adversarial-judges` | 다중 독립 심사와 중재 판정으로 제출물을 공격할 때 |
-| `수상최적화` | `$self-refine-with-overfit-guard` | 피드백을 반영하되 심사자 과적합과 범위 팽창을 막을 때 |
-| `데모설계` | `$engineer-competition-demo` | 심사장에서 재현 가능한 데모를 설계·리허설할 때 |
-| `IR덱`, `발표설계` | `$architect-judge-first-deck` | 심사 질문에 답하는 발표·IR 덱을 만들 때 |
-| `질의응답` | `$prepare-hostile-qa` | 압박 질문과 짧고 근거 있는 재반박을 준비할 때 |
+| Core 1 | $run-competition-winning-workflow | 공모전 — 전체 진행 |
+| Core 2 | $analyze-competition-deeply | 공모전분석, 수상작역설계 — 공식 기준·주최기관·수상작·경쟁자 패턴 |
+| Core 3 | $plan-competition-ideas | 공모전기획, 문제채굴, 차별화검증 — 문제·후보·AI fit·선행기술·MVP |
+| Core 4 | $build-competition-evidence-pack | 공모전딥리서치, 근거자료집 — 논문·통계·특허·뉴스·데이터 검증 |
+| Core 5 | $build-competition-feature-spec | 기능명세서, 공모전기능명세 — 서비스 흐름·상태·인수조건 |
+| Core 6 | $engineer-competition-demo | 데모설계 — magic moment·결정 경로·복구·리허설 |
+| Core 7 | $prepare-competition-presentation | IR덱, 발표설계, 질의응답 — 덱·대본·압박 Q&A |
+| Core 8 | $review-competition-proposals | 공모전검토, 악질심사 — 공식 심사·공격 모드·최종 파일 감사 |
+| Core 9 | $self-refine-with-overfit-guard | 수상최적화 — 버전 전이·검증·과적합 방지 |
+| Optional | $map-competition-materials | 자료관계분석 — 많은 자료의 claim↔evidence 관계 |
+| Optional | $prepare-design-brief | 디자인제안서 — 요청된 디자이너 전달 |
 
-명령어 없이도 같은 의도를 자연어로 말하면 설명의 한국어 키워드와 요청 문맥을 기준으로 적절한 스킬을 선택합니다. 예: “공모전 수상작을 역설계해 우리 전략을 세워줘”, “악질 심사처럼 공격해줘”.
+Core는 역량 구분입니다. 정책 공모전에 앱 기능명세를 강제하거나 Q&A 요청에 전체 덱을 다시 만들지 않습니다. 공식 산출물 요구에 따라 필요한 단계만 실행합니다.
 
-## 전체 경로
+## 전체 흐름
 
-```text
-공식 공고 lock
-  → 수상작 역설계
-  → 문제 채굴
-  → 아이디어 선택
-  → 경쟁 공백·선행기술·특허 확인
-  → 근거 딥리서치
-  → MVP·기능 명세
-  → 데모
-  → IR 덱
-  → 악질 심사
-  → 과적합 방지 자기개선
-  → holdout judge
-  → 질의응답
-  → submission freeze
-```
+공식 Source Lock → 분석 → 기획 → Evidence Deep Research → MVP/기능명세 → Demo → Presentation/Q&A → Independent Review(Adversarial 포함) → Self-refine → 독립 validation과 회귀 검사 → 최종 Holdout → Q&A 보완/제출 QA → Submission Freeze.
 
-`공모전` 라우터는 공모전 형식에 따라 심사 가중치와 산출물 경로를 조정합니다.
+반복 중에는 Review로 돌아가 변경한 버전을 검사합니다. 아이디어·정책, AI·데이터, 해커톤, 캡스톤별 우선순위는 라우터에 있으며 공식 배점이 항상 우선합니다. 자료관계분석은 자료가 많을 때, 디자인 전달은 요청 시 선택합니다.
 
-| 공모전 유형 | 기본적으로 더 크게 보는 항목 | 기본 경로 조정 |
-| --- | --- | --- |
-| 아이디어·정책 | 문제의 공공성, 정책 정합성, 집행·확산 가능성 | 데모는 정책 시나리오·운영 모형으로 대체 가능 |
-| AI·데이터 | 데이터 적법성, 모델 필요성, 검증 설계, 안전성 | AI 대안·성능 검증·데이터 계보를 필수 확인 |
-| 해커톤 | 작동 MVP, 현장 데모, 제한 시간 내 완결성 | 작은 결정 경로와 복구 가능한 데모를 강하게 우선 |
-| 캡스톤 | 기술 깊이, 설계·구현 진실성, 연구·팀 기여 | 구현 증거와 아키텍처·한계 설명을 강화 |
+## 내부 프로토콜
 
-공식 배점이 있으면 언제나 이 표보다 공식 배점을 우선합니다. 사용자의 기존 문제 정의와 확정된 근거는 기준본으로 보존하며, 새 기능·주장·화면은 점수 개선보다 먼저 실행 가능성 및 증거 부담을 통과해야 합니다.
+- 분석: winner-reverse-engineering, rubric-decoding, competitor-archetypes, organizer-intent
+- 기획: problem-mining, competitive-whitespace, novelty-and-prior-art, ai-fit-gate, collapse-conditions
+- 리뷰: official-rubric-review, adversarial-judge-pass, evidence-attack, system-operation-attack, submission-qa
+- 발표: judge-first-deck, hostile-qa
 
-## 스킬 설치
+모든 프로토콜은 소유 스킬의 references/ 아래에 있고 SKILL.md에 읽는 조건이 있습니다. 독립 스킬로 중복 설치하지 않습니다.
 
-각 `skills/<skill-name>` 폴더는 독립적인 Codex Agent Skill입니다. 필요한 폴더만 Codex 스킬 폴더(예: `~/.codex/skills/`)에 복사한 뒤 새 Codex 작업에서 사용하세요.
+## 과적합 방지
 
-```text
-skills/
-├── run-competition-winning-workflow/
-├── reverse-engineer-winning-entries/
-├── mine-high-value-problems/
-├── map-competitive-whitespace/
-├── simulate-adversarial-judges/
-├── self-refine-with-overfit-guard/
-├── engineer-competition-demo/
-├── architect-judge-first-deck/
-└── prepare-hostile-qa/
-```
+원본 baseline과 best passing version을 별도로 보존합니다. 후보 수정은 공식 기준 관련성, regression, complexity budget, evidence drift, scope drift, demoability, single-judge overfit 검사를 통과해야 합니다. v8의 차별성이 높아져도 설명력·구현성이 하락하면 v8을 거절하고 v7을 유지합니다.
 
-## 공통 원칙
+심사는 8개 관점과 2개 블라인드 풀, arbiter 구조입니다. 독립성은 격리된 평가 문맥 또는 별도 사람 심사자가 있어야 성립합니다. 한 대화에서 역할만 바꾼 결과는 비독립 비평으로 표시하며 holdout 통과로 인정하지 않습니다.
 
-- 공고, 정정공고, FAQ, 양식, 공식 평가표가 최상위 기준이다.
-- 공식 사실, 공개 사례에서의 관찰, 팀의 분석 가설, 가정, 목표, 구현 계획을 혼용하지 않는다.
-- 수상작 공개 요약은 반복 패턴의 단서일 뿐, 비공개 심사 기록이나 심사위원 개인 취향의 증거가 아니다.
-- “최초”, “유일”, “특허 없음”은 검색 범위·확인일·접근 한계를 함께 쓰고, 부재 검색만으로 단정하지 않는다.
-- 근거 없는 성능·효과·예산·사용자 수는 만들지 않는다. 필요한 경우 측정 설계와 `[기준 설정 필요]`를 남긴다.
-- 구현, 부분 구현, 목업, 계획을 명확히 구분한다.
-- 제출 전에는 기능 증가보다 문제 정의·근거·실행가능성·데모 재현성의 보존을 우선한다.
+반복용 validation과 최종 holdout을 구분합니다. 피드백이 공개된 holdout은 소진 처리하고 다음 반복에 재사용해도 독립 검증으로 세지 않습니다.
 
-## 권장 사용 예시
+기본 최대 40 evaluation opportunities, 3개 연속 무개선 후보에서 조기 종료를 검토합니다. 한 심사자가 한 버전을 평가하면 1회이며 8개 심사 평가는 8회입니다. 사용자가 500회를 지정해도 상한일 뿐입니다. 최종 holdout 기회를 먼저 예약하고, 개선 재현 실패·예산/리허설 보호 한도 도달 시 멈춥니다. 중대 결함이 남으면 NOT READY로 끝납니다.
 
-```text
-공모전
-공식 공고와 평가표, 팀의 현재 MVP 및 아이디어 메모를 기준으로
-수상 경쟁 워크플로를 진행해줘. 공고 lock부터 시작하고,
-추가 기능은 근거·시연성·일정이 통과할 때만 제안해줘.
-```
+## 기존 구조에서 이전
 
-```text
-수상최적화
-이 덱과 데모 스크립트의 기준본을 고정한 뒤, 악질심사 피드백을 반영해줘.
-holdout 심사자와 regression gate를 통과하지 못한 수정은 되돌려줘.
-```
+기존 독립 식별자 6개는 내부 프로토콜로 흡수했습니다.
+
+| 기존 식별자 | 새 호출 |
+| --- | --- |
+| reverse-engineer-winning-entries | analyze-competition-deeply / 수상작역설계 |
+| mine-high-value-problems | plan-competition-ideas / 문제채굴 |
+| map-competitive-whitespace | plan-competition-ideas / 차별화검증 |
+| simulate-adversarial-judges | review-competition-proposals / 악질심사 |
+| architect-judge-first-deck | prepare-competition-presentation / IR덱 |
+| prepare-hostile-qa | prepare-competition-presentation / 질의응답 |
+
+이미 이전 버전을 설치했다면 해당 6개 폴더를 백업 후 스킬 검색 경로 밖으로 옮기고 새 구조를 설치하세요. 함께 남기면 이전 트리거가 계속 발견될 수 있습니다. 현재 변경은 저장소에만 적용되며 개인 설치 폴더를 자동으로 수정하지 않습니다.
+
+## 사용 예
+
+> 공모전: 첨부 공고·평가표와 현재 MVP를 기준으로 진행해줘. 기존 문제와 범위를 보존하고, 결정적인 주장부터 근거를 검증해줘.
+
+> 악질심사: 이 버전에 대해 독립 심사와 중재 결과를 만들어줘. 파일 위치와 근거가 있는 결함부터 알려줘.
+
+> 수상최적화: best version을 보존하면서 피드백을 반영해줘. 개선이 독립 검증에서 재현되지 않으면 멈추고, 최종 holdout은 분리해줘.
+
+## 검증과 출처
+
+검증은 [구조 및 시나리오 점검 기록](docs/validation.md)에 기록합니다. 형식 검증은 실제 공모전 성과나 자동 호출 정확도를 보장하지 않습니다.
+
+[competition-ai-skill-suite](https://github.com/Suya020504/competition-ai-skill-suite)의 사용자 의도별 구조와 근거·정확성·정합성 원칙을 참고했습니다. 이 저장소의 신규 스킬과 프로토콜은 자체 작성했으며 upstream의 실행 스크립트나 문서 출력 도구를 포함하지 않습니다.

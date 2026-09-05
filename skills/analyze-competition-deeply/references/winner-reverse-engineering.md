@@ -1,10 +1,3 @@
----
-name: reverse-engineer-winning-entries
-description: Analyze official competition criteria and publicly available winning entries to derive testable competition strategy without confusing formal rules, observed patterns, hypotheses, or team decisions. Invoke for “수상작역설계”, winner analysis, award-pattern analysis, or judging-strategy requests.
-metadata:
-  short-description: 수상작을 근거 있게 역설계
----
-
 # Reverse-engineer winning entries
 
 ## Purpose
