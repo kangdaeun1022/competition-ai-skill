@@ -1,0 +1,3 @@
+# AI fit gate
+State the input, required output, resulting user action and cost of error. Compare manual workflow, rules, retrieval and simple models before complex AI. Classify AI-essential, AI-assistive, non-AI-first or inappropriate with reasons.
+When AI is justified, record lawful data access, baseline, train/validation/test separation, leakage risks, representative evaluation, latency/cost, error handling and human authority. Label offline benchmark results separately from live reliability. If an AI requirement exists but no defensible use is available, report the mismatch; do not attach an ornamental AI feature.

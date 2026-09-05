@@ -1,10 +1,3 @@
----
-name: prepare-hostile-qa
-description: Prepare evidence-led answers to skeptical competition questions with intent, risky answer, 20-second response, support, follow-up attack, and 10-second rebuttal. Invoke for “질의응답”, hostile Q&A, panel questions, defense rehearsal, or presentation rebuttal requests.
-metadata:
-  short-description: 압박 질의응답 준비
----
-
 # Prepare hostile Q&A
 
 ## Purpose

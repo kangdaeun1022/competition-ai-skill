@@ -1,0 +1,3 @@
+# Attack systems and operations
+Walk the core input→decision→action path and its failure paths. Inspect implementation artifacts, dependency/data access, permissions, human authority, auditability, abuse/privacy exposure and fallback. For policy submissions inspect accountable actors, exception handling, resources and adoption authority.
+Separate implemented, partial, mockup and planned capabilities. Challenge time/cost assumptions and maintenance ownership. Demonstrated success on one fixture is limited proof. Each finding identifies a concrete failure condition, affected person, evidence, severity and a minimal test/remedy.

@@ -11,7 +11,7 @@ metadata:
 
 Improve the submission without optimizing to a single simulated judge, one loud critique, or a more elaborate story. The preferred change is the smallest reversible change that improves a rubric-relevant weakness while preserving verified facts, agreed scope, and a runnable demo.
 
-Use this only after a baseline submission and an independent review exist. If they do not, create them first with `$simulate-adversarial-judges` or state that refinement is provisional.
+Use this only after a baseline submission and an independent review exist. If they do not, create them first with `$review-competition-proposals` in adversarial mode or state that refinement is provisional.
 
 ## Freeze a baseline
 
@@ -49,7 +49,11 @@ Make exceptions only for an official-rule correction, a submission blocker, or a
 
 Use **blind judge pools** for iteration: reviewers see the revised artifact and rubric but not the change author’s rationale, prior scores, or other reviewers’ comments. Never reuse the exact same feedback pool as the only acceptance signal.
 
-Reserve one or more **holdout judges**—independent rubric perspectives that do not see iteration notes or proposed remedies—until a candidate revision batch is complete. The holdout packet should be blinded to baseline/revision labels where feasible and ask the same criterion questions. A change is accepted only when the holdout result confirms that the material criterion improved or did not regress.
+Before revision, reserve separate **holdout judges** and their questions/cases. Use rotating blind validation judges for candidate batches. Keep the final holdout sealed until refinement stops; compare the best candidate with the baseline in randomized A/B order without labels, rationale or review history.
+
+A holdout is consumed when its feedback is exposed. Record its ID and exposure date. Subsequent repairs require fresh unexposed questions and an isolated reviewer; replaying the consumed holdout is regression testing only. Review independence requires isolated contexts or human reviewers. A single-context roleplay is explicitly non-blind and cannot pass this gate.
+
+Accept a candidate only when a predeclared criterion meaningfully improves in independent validation, no protected criterion regresses, and all factual/scope/demo gates pass. An unchanged score alone is insufficient reason to replace the simpler best version. Track evidence-backed improvements separately from subjective score fluctuations.
 
 If a holdout judge materially disagrees, use an arbiter to inspect artifacts and rubric support. Do not rewrite toward the holdout’s personal preference; either preserve the baseline, make a narrower evidence-backed change, or collect the missing proof.
 
@@ -68,6 +72,14 @@ Immediately restore the latest passing baseline or remove the offending change w
 Record `rollback condition → reverted revision IDs → preserved finding → next smallest test`. Rollback is a control, not a failure.
 
 ## Stop and freeze
+
+Before starting, record a finite evaluation budget, meaningful-improvement threshold, patience and rehearsal reserve. Default to at most 40 evaluation opportunities and patience of 3 consecutive non-improving candidates, unless the user supplies a different bound. These are workflow defaults, not empirically optimal values. A request for 500 means at most 500 opportunities, never 500 mandatory revisions.
+
+One opportunity is one independent reviewer assessment of one artifact version, including validation and holdout; eight judge assessments consume eight opportunities. Reserve enough for final holdout before spending on iteration. Record consumed opportunities even for rejected candidates; retries do not reset the count.
+
+Stop when the budget/time reserve is reached, or patience is exhausted with no newly substantiated major defect. Stop a change line when improvement fails to reproduce in validation; retain the best version. Budget exhaustion with blockers yields NOT READY, never automatic freeze. Never increase the budget merely to obtain a pass.
+
+Maintain an immutable original baseline and a separate best-passing-version pointer. Roll back only revision-owned changes or restore a separate candidate copy; preserve unrelated edits. Example: v8 gains differentiation but loses explanation or implementation feasibility → reject v8 and keep v7. Record the exact failed gate and evidence.
 
 Stop iterating when the high-severity issue register is closed or consciously accepted with mitigation, the complexity budget is near its protected rehearsal reserve, and the holdout review passes. Freeze new functionality after this point; allow only compliance repairs, source corrections, or rehearsal-discovered blockers.
 

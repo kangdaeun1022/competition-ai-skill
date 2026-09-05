@@ -1,0 +1,2 @@
+# Organizer intent
+Read current official mission, program purpose and relevant policy/operating documents. Record publication and check dates. Distinguish explicit contest requirements from broader institutional context and inferred priorities. Test each inferred priority against the rubric and contrary evidence. Use institutional context to explain relevance; never invent a judge's private preferences or use unrelated personal details.

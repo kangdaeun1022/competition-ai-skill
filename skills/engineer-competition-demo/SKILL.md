@@ -33,6 +33,8 @@ Use known-good fixtures, a fixed account/role, controlled sample inputs, prevali
 
 Keep the critical path short. Every step must either advance the magic moment or be removed. Set a presentation time budget with a hard stopping point before Q&A.
 
+Use the official demo duration; when unspecified, target 2–3 minutes and label it a rehearsal default. Policy/idea entries may demonstrate an accountable operating scenario with the same visible decision and recovery logic.
+
 ## Engineer recovery before polish
 
 For each dependency—network, API/model, login, device, browser, data, integration, projector—record failure probability, detection point, and recovery owner. Prepare all of the following:

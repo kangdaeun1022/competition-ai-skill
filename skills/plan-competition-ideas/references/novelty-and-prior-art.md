@@ -1,0 +1,3 @@
+# Novelty and prior art
+Reuse the four-landscape search in competitive-whitespace.md. Compare mechanism, decision context and constraints rather than branding. Record queries, databases, language/jurisdiction, date, close matches and inaccessible results. A missing result supports only a scoped negative search.
+For patent-sensitive claims request a public-record evidence screen through build-competition-evidence-pack. Keep proposal differentiation, research novelty and legal rights distinct. Withdraw broad first/only claims when unsupported. Narrow, acknowledge/integrate or pivot with reasons; material changes to the locked problem need the user's decision.

@@ -1,10 +1,3 @@
----
-name: map-competitive-whitespace
-description: Test a competition idea’s residual differentiation against current services, technical prior art, prior contest entries, and relevant patent or rights records. Invoke for “차별화검증”, competitive whitespace, prior-art, novelty, competitor, or patent-scan requests; this is not a legal freedom-to-operate opinion.
-metadata:
-  short-description: 경쟁 공백과 차별성 검증
----
-
 # Map competitive whitespace
 
 ## Purpose

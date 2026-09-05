@@ -1,10 +1,3 @@
----
-name: mine-high-value-problems
-description: Discover, compare, and validate evidence-backed competition problems before solution ideation. Invoke for “문제채굴”, problem discovery, user pain points, public-policy bottlenecks, or high-value problem selection; do not use to invent solutions before the problem is evidenced.
-metadata:
-  short-description: 고가치 공모전 문제 채굴
----
-
 # Mine high-value problems
 
 ## Purpose

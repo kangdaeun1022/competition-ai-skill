@@ -1,10 +1,3 @@
----
-name: architect-judge-first-deck
-description: Build a competition or IR presentation deck by mapping each likely judge question to a slide, evidence, visual proof, and takeaway. Invoke for “IR덱”, “발표설계”, pitch deck, competition presentation, or judge-first slide architecture requests.
-metadata:
-  short-description: 심사 질문 우선 IR 덱 설계
----
-
 # Architect a judge-first deck
 
 ## Purpose
@@ -55,7 +48,7 @@ For a policy/idea contest, replace implementation details with a believable oper
 
 ## Stress test
 
-Remove, merge, or defer a slide when it adds no new evidence or causes an unanswerable claim. Check that a judge can trace every decisive assertion to an artifact, source, or validation plan, and that the deck’s labels agree with the demo. Run `$simulate-adversarial-judges` on the resulting deck before late-stage polish.
+Remove, merge, or defer a slide when it adds no new evidence or causes an unanswerable claim. Check that a judge can trace every decisive assertion to an artifact, source, or validation plan, and that the deck’s labels agree with the demo. Run `$review-competition-proposals` in adversarial mode on the resulting deck before late-stage polish.
 
 ## Output
 
