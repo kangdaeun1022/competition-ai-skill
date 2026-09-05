@@ -1,17 +1,18 @@
 ---
 name: run-competition-winning-workflow
-description: Coordinate multiple stages of competition preparation from official source lock to submission freeze. Use for 공모전 or end-to-end preparation; route focused analysis, planning, evidence, specification, demo, presentation, review or refinement requests to their owner.
+description: Coordinate competition preparation from opportunity selection or official source lock to submission freeze. Use for 공모전 or end-to-end preparation; route focused comparison, analysis, planning, evidence, specification, demo, presentation, review or refinement requests to their owner.
 ---
 
 # Run the competition winning workflow
 
-Use Core 9 skills by user intent. Read the selected installed skill before execution. If a sibling skill is not installed, read its repository SKILL.md when available; otherwise report the missing capability and continue only supported work. Do not claim an unavailable stage ran.
+Use the installed competition skills by user intent. Read the selected skill before execution. Persist stable IDs and handoffs using `../../docs/contracts.md`. If a sibling skill is not installed, read its repository SKILL.md when available; otherwise report the missing capability and continue only supported work. Do not claim an unavailable stage ran.
 
 ## Intent routing
 
 | Intent / alias | Owner and mode |
 | --- | --- |
 | 공모전, 전체 진행 | this router |
+| 대회추천, 공모전비교, 해커톤비교, 꿀통공모전, 참가우선순위 | rank-competition-opportunities |
 | 공모전분석, 수상작역설계 | analyze-competition-deeply; winner protocol for the latter |
 | 공모전기획, 문제채굴, 차별화검증 | plan-competition-ideas; requested internal protocol |
 | 공모전딥리서치, 근거자료집 | build-competition-evidence-pack |
@@ -25,40 +26,37 @@ Use Core 9 skills by user intent. Read the selected installed skill before execu
 
 Focused aliases select a mode, not the whole process. Full-process work resumes from valid handoffs and reruns only stages invalidated by changed rules, evidence or scope.
 
-## Official source lock and weighted routes
+## Source lock and contest-specific routes
 
-Begin with current official notice, corrections, FAQ, rubric and forms using analyze-competition-deeply. Lock source/version, requirements, eligibility, deadline/timezone, artifact constraints and unanswered questions. If a decisive official file is unavailable, state what cannot be locked.
+When the contest is not yet chosen, rank opportunities first. Once chosen, begin with current official notice, corrections, FAQ, rubric and forms using analyze-competition-deeply. Lock source/version, requirements, eligibility, deadline/timezone, award paths, artifact constraints and unanswered questions.
 
-Official weights always override these provisional planning priorities. These numbers are resource-prioritization defaults, not estimates of real judging or winning probability.
+Official weights always override provisional priorities. Planning weights are resource-allocation heuristics, never award probabilities.
 
-| Type | Provisional weights totaling 100 | Route adjustment |
-| --- | --- | --- |
-| Idea/policy | problem 30, public/policy fit 25, operations 25, communication 20 | operating plan and scenario proof; product spec only when applicable |
-| AI/data | problem 20, data/AI/safety 30, evaluation/MVP 30, adoption 20 | data permission, non-AI baseline and evaluation before build |
-| Hackathon | MVP/demo 35, value 25, difference 15, delivery 15, communication 10 | narrow core flow and protected rehearsal time |
-| Capstone | technical depth 30, implementation 30, validation 20, impact/communication 20 | reproducibility, architecture and team contribution |
+- Idea/policy: problem, public/policy fit, operating mechanism and communication dominate; do not force product features.
+- AI/data: establish data permission, non-AI baseline, evaluation design and failure/human-authority path before feature expansion.
+- Hackathon: use a **magic-moment-first branch**. After problem and criterion lock, define the observable judge promise and demo storyboard before expanding the feature specification. Build only the shortest implemented path needed to prove it, then harden fallback/reset/rehearsal.
+- Capstone: preserve technical depth, reproducibility, architecture, implementation evidence, validation and team contribution even when the demo is simplified.
 
-Set available time, people, permissions and rehearsal reserve as the complexity budget. Use the actual deliverable requirements for mixed competitions.
+Set available time, people, permissions and rehearsal reserve as the complexity budget.
 
-## Stage sequence and completion
+## Stage sequence
 
-1. Official source lock → analysis: criteria, organizer, winner reverse engineering and competitor patterns. Output CONTEST_ANALYSIS_HANDOFF.
-2. Planning: problem mining, candidates, prior art/whitespace, AI fit and collapse conditions. Output IDEA_PLAN_HANDOFF with locked scope and explicitly untested assumptions.
-3. Evidence deep research: classify every decisive claim and investigate contradictions. Output evidence register and claim matrix. Unresolved claims remain labeled and constrain the next stage.
-4. MVP/features: product specification or policy operating plan with traceable acceptance criteria and implementation status.
-5. Demo engineering: magic moment, deterministic path and recovery/rehearsal evidence; policy scenario when appropriate.
-6. Presentation/Q&A: criterion-driven deck, script and answer cards within official time/format.
-7. Independent review including adversarial pass: versioned findings and arbiter issue register.
-8. Guarded refinement: candidate→regression gates→blind validation→accept/reject against best version. Return to review for changed artifacts within the finite evaluation budget.
-9. After refinement stops, run reserved holdout once. If it fails, retain the passing best version or make authorized repairs with a fresh holdout; the consumed holdout is not reused as unseen evidence.
-10. Refresh affected Q&A, complete submission QA and freeze the exact final artifacts.
-
-Do not force optional skills or irrelevant artifact types. A requested partial stage can complete with explicit gaps; full submission freeze requires all relevant checks to pass.
+1. Optional opportunity ranking when multiple contests/tracks are in play.
+2. Official source lock → analysis: rubric, organizer, winner patterns, competitor archetypes, judging environment and award paths when relevant. Output CONTEST_ANALYSIS_HANDOFF.
+3. Planning: problem, candidates, prior art/whitespace, AI fit and collapse conditions. Output IDEA_PLAN_HANDOFF.
+4. Evidence research: classify every decisive claim, seek contradictions and produce the EVIDENCE_REGISTER.
+5. Build path by contest type:
+   - hackathon: magic moment/demo storyboard → minimal feature path → deterministic demo hardening;
+   - product/capstone: MVP feature spec → demo engineering;
+   - policy/idea: operating scenario and accountable decision path.
+6. Presentation/Q&A: criterion-driven deck, script and answer cards. Bring the magic moment forward for hackathons.
+7. Independent review including adversarial and communication-reality audits: versioned findings and arbiter issue register.
+8. Guarded refinement: candidate → regression gates → blind validation → accept/reject against best version within finite evaluation budget.
+9. After refinement stops, run reserved holdout once. Exposed holdouts are consumed.
+10. Refresh affected Q&A, complete submission QA and freeze exact final artifacts.
 
 ## State and boundaries
 
-Persist a compact WORKFLOW_STATE: official lock version, type/weights and provenance, problem/mechanism/exclusions, evidence and implementation status, artifact versions, issues, best version, evaluations consumed, budget remaining, next stage and reopen triggers.
+Persist WORKFLOW_STATE using the shared contract: official lock, contest type/rubric provenance, problem/mechanism/exclusions, evidence and implementation truth, artifact versions, issue IDs, best passing version, evaluation budget, next stage and reopen triggers.
 
-All three review steps have different jobs: review finds defects, refinement controls changes, holdout checks the final candidate without iteration history. Delegate revisions only within user-authorized scope. Protect best-version snapshots and unrelated user edits.
-
-Freeze prevents new scope after final QA. Reopen affected artifacts only for official corrections, verified factual defects or demonstrated blockers; rerun their checks. Freeze is preparation and does not itself authorize external submission.
+Review finds defects; refinement controls changes; holdout checks the final candidate without iteration history. Protect best-version snapshots and unrelated user edits. Freeze prevents new scope after final QA and does not authorize external submission.
